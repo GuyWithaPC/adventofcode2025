@@ -1,0 +1,12 @@
+[package]
+name = "aoc2025"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+automod = "1.0.15"
+compose-idents = "0.3.0"
+indoc = "2.0.7"
+itertools = "0.14.0"
+rayon = "1.11.0"
+seq-macro = "0.3.6"
