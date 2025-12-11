@@ -1,0 +1,1 @@
+place inputs here named with the format "day{n}.txt"
