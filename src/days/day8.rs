@@ -1,5 +1,5 @@
 
-use std::sync::{Arc, Mutex};
+use std::sync::Mutex;
 
 use itertools::Itertools;
 
@@ -121,7 +121,7 @@ impl Graph {
         }).unwrap();
         a.position.0 as u64 * b.position.0 as u64
     }
-    pub fn largest_groups(&self) -> Box<dyn Iterator<Item = u64>> {
+    pub fn largest_groups(&mut self) -> Box<dyn Iterator<Item = u64>> {
         Box::new((0..self.nodes.len()).sorted_by(|a, b| {
             self.get_leader(*a).cmp(&self.get_leader(*b))
         }).dedup_by_with_count(|a, b| {
@@ -138,10 +138,14 @@ impl Graph {
             a.total_cmp(b)
         }).map(|(p, _)| p))
     }
-    pub fn get_leader(&self, node: usize) -> usize {
+    pub fn get_leader(&mut self, node: usize) -> usize {
         match self.nodes[node].group {
             Group::Leader => node,
-            Group::Reference(n) => self.get_leader(n)
+            Group::Reference(n) => {
+                let leader = self.get_leader(n);
+                self.nodes[node].group = Group::Reference(leader);
+                leader
+            }
         }
     }
     pub fn join(&mut self, a: usize, b: usize) {
