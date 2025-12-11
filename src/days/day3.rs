@@ -1,7 +1,6 @@
 use std::sync::Arc;
 
 use crate::day;
-use rayon::prelude::*;
 
 day!{
 {
