@@ -51,5 +51,5 @@ fn main() {
     } else {
         day_num = 0;
     }
-    run_days!(8, day_num);
+    run_days!(9, day_num);
 }
